@@ -73,7 +73,7 @@ const findNextPageLink = async (page) => {
         await page.goto(worker.link);
         await page.waitForSelector("#fontzoom");
 
-        // Build content.
+        // Write content.
         const textList = await page.$$eval("#fontzoom p", els => els.map(el => el.innerText));
         const content = textList.join("\n");
         writeContentToDocs(worker.title, content);
