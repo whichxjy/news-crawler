@@ -8,13 +8,17 @@ const puppeteer = require("puppeteer");
     // Type search word.
     const searchSelector = "input[name='searchword1']";
     await page.waitForSelector(searchSelector);
-    await page.type(searchSelector, "春");
+    await page.type(searchSelector, "一天一天");
 
     // Submit search.
     await Promise.all([
         page.waitForNavigation(),
         page.click("input[title='提交检索']"),
     ]);
+
+    // Get item list.
+    const itemList = await page.$$(".div_rmrb-outlinetitle");
+    console.log(itemList.length);
 
     await page.screenshot({ path: "hello.png" });
 
