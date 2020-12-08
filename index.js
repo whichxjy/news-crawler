@@ -8,13 +8,13 @@ const puppeteer = require("puppeteer");
     // Type search word.
     const searchSelector = "input[name='searchword1']";
     await page.waitForSelector(searchSelector);
-    await page.type(searchSelector, "Hello");
+    await page.type(searchSelector, "春");
 
-    const [response] = await Promise.all([
+    // Submit search.
+    await Promise.all([
         page.waitForNavigation(),
         page.click("input[title='提交检索']"),
     ]);
-
 
     await page.screenshot({ path: "hello.png" });
 
