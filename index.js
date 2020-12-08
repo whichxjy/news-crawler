@@ -23,6 +23,13 @@ const findNextPageLink = async (page) => {
 };
 
 (async () => {
+    const args = process.argv.slice(2);
+    if (args.length === 0) {
+        console.error("No search word provided");
+        process.exit(1);
+    }
+    const searchWord = args[0];
+
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto("http://10.8.11.170/web/images/101/101index.htm");
@@ -30,7 +37,7 @@ const findNextPageLink = async (page) => {
     // Type search word.
     const searchSelector = "input[name='searchword1']";
     await page.waitForSelector(searchSelector);
-    await page.type(searchSelector, "一天一天");
+    await page.type(searchSelector, searchWord);
 
     // Submit search.
     await Promise.all([
