@@ -36,8 +36,7 @@ const errorHandler = (error) => {
 const writeContentToDocs = (title, content) => {
     console.log(`Start write docs ${title}`);
 
-    const template = fs
-        .readFileSync(TEMPLATE_PATH, "binary");
+    const template = fs.readFileSync(TEMPLATE_PATH, "binary");
 
     const zip = new pizzip(template);
     let doc;
