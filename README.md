@@ -1,7 +1,13 @@
 # News Crawler
 
+## Setup
+
+```
+npm install
+```
+
 ## Run
 
 ```
-npm run search [word]
+npm start [word]
 ```
