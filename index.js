@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+const { writeContentToDocs } = require("./docs");
 
 class Worker {
     constructor(title, link) {
@@ -73,13 +74,11 @@ const findNextPageLink = async (page) => {
 
         // Build content.
         const textList = await page.$$eval("#fontzoom p", els => els.map(el => el.innerText));
-        const context = textList.join("\n");
-        console.log(context);
+        const content = textList.join("\n");
+        writeContentToDocs(worker.title, content);
     }
 
     console.log(workerList.length);
-
-    await page.screenshot({ path: "hello.png" });
 
     await browser.close();
 })();
