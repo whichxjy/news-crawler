@@ -30,7 +30,7 @@ const findNextPageLink = async (page) => {
     // Type search word.
     const searchSelector = "input[name='searchword1']";
     await page.waitForSelector(searchSelector);
-    await page.type(searchSelector, "一天一天");
+    await page.type(searchSelector, "上海国际电影电视节将举办");
 
     // Submit search.
     await Promise.all([
@@ -44,13 +44,14 @@ const findNextPageLink = async (page) => {
     for (;;) {
         // Get item list.
         const itemListSelector = ".div_rmrb-outlinetitle";
-        page.waitForSelector(itemListSelector);
+        await page.waitForSelector(itemListSelector);
         const itemList = await page.$$(itemListSelector);
 
         for (let item of itemList) {
             const itemSelector = "a.ab18";
             let title = await item.$eval(itemSelector, el => el.innerText);
             let link = await item.$eval(itemSelector, el => el.getAttribute("href"));
+
             let worker = new Worker(title, link);
             console.log(`Build worker ${worker.title}`);
             workerList.push(worker);
@@ -69,7 +70,7 @@ const findNextPageLink = async (page) => {
     for (let worker of workerList) {
         console.log(`Start work on ${worker.title}`);
 
-        page.goto(worker.link);
+        await page.goto(worker.link);
         await page.waitForSelector("#fontzoom");
 
         // Build content.
