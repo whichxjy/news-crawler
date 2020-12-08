@@ -53,12 +53,15 @@ const findNextPageLink = async (page) => {
         }
 
         const nextPageLink = await findNextPageLink(page);
-        console.log(nextPageLink);
+        if (nextPageLink === null) {
+            break;
+        }
 
-        break;
+        // Go to next page.
+        await page.goto(nextPageLink);
     }
 
-    // console.log(workerList);
+    console.log(workerList.length);
 
     await page.screenshot({ path: "hello.png" });
 
