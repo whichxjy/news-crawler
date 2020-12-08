@@ -26,12 +26,16 @@ class Worker {
     // Build worker list.
     const workerList = [];
 
+    for (;;) {
     // Get item list.
-    const itemList = await page.$$(".div_rmrb-outlinetitle");
-    for (let item of itemList) {
-        let title = await item.$eval("a.ab18", el => el.innerHTML);
-        let link = await item.$eval("a.ab18", el => el.getAttribute("href"));
-        workerList.push(new Worker(title, link));
+        const itemList = await page.$$(".div_rmrb-outlinetitle");
+        for (let item of itemList) {
+            let title = await item.$eval("a.ab18", el => el.innerHTML);
+            let link = await item.$eval("a.ab18", el => el.getAttribute("href"));
+            workerList.push(new Worker(title, link));
+        }
+
+        break;
     }
 
     console.log(workerList);
