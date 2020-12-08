@@ -1,0 +1,15 @@
+{
+  "name": "news-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^5.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.15.0"
+  }
+}
