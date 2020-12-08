@@ -13,6 +13,7 @@ const findNextPageLink = async (page) => {
     const linkList = await page.$$eval("a[target='_self']", els => els
         .filter(el => el.innerHTML === "下一页")
         .map(el => el.getAttribute("href")));
+
     if (linkList.length >= 1) {
         return linkList[0];
     }
@@ -49,7 +50,9 @@ const findNextPageLink = async (page) => {
             const itemSelector = "a.ab18";
             let title = await item.$eval(itemSelector, el => el.innerHTML);
             let link = await item.$eval(itemSelector, el => el.getAttribute("href"));
-            workerList.push(new Worker(title, link));
+            let worker = new Worker(title, link);
+            console.log(`Build worker ${worker.title}`);
+            workerList.push(worker);
         }
 
         const nextPageLink = await findNextPageLink(page);
@@ -59,6 +62,11 @@ const findNextPageLink = async (page) => {
 
         // Go to next page.
         await page.goto(nextPageLink);
+    }
+
+    // Work on all links.
+    for (let worker of workerList) {
+        console.log(`Start work on ${worker.title}`);
     }
 
     console.log(workerList.length);
