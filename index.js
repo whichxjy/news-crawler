@@ -30,7 +30,7 @@ const findNextPageLink = async (page) => {
     // Type search word.
     const searchSelector = "input[name='searchword1']";
     await page.waitForSelector(searchSelector);
-    await page.type(searchSelector, "上海国际电影电视节将举办");
+    await page.type(searchSelector, "一天一天");
 
     // Submit search.
     await Promise.all([
