@@ -11,7 +11,7 @@ const findNextPageLink = async (page) => {
     await page.waitForSelector(".div_rmrb-date");
 
     const linkList = await page.$$eval("a[target='_self']", els => els
-        .filter(el => el.innerHTML === "下一页")
+        .filter(el => el.innerText === "下一页")
         .map(el => el.getAttribute("href")));
 
     if (linkList.length >= 1) {
@@ -48,7 +48,7 @@ const findNextPageLink = async (page) => {
 
         for (let item of itemList) {
             const itemSelector = "a.ab18";
-            let title = await item.$eval(itemSelector, el => el.innerHTML);
+            let title = await item.$eval(itemSelector, el => el.innerText);
             let link = await item.$eval(itemSelector, el => el.getAttribute("href"));
             let worker = new Worker(title, link);
             console.log(`Build worker ${worker.title}`);
@@ -67,6 +67,14 @@ const findNextPageLink = async (page) => {
     // Work on all links.
     for (let worker of workerList) {
         console.log(`Start work on ${worker.title}`);
+
+        page.goto(worker.link);
+        await page.waitForSelector("#fontzoom");
+
+        // Build content.
+        const textList = await page.$$eval("#fontzoom p", els => els.map(el => el.innerText));
+        const context = textList.join("\n");
+        console.log(context);
     }
 
     console.log(workerList.length);
