@@ -3,7 +3,7 @@ const docxtemplater = require("docxtemplater");
 const fs = require("fs");
 const path = require("path");
 
-const TEMPLATE_PATH = path.resolve(__dirname, "input.docx");
+const TEMPLATE_PATH = path.resolve(__dirname, "template.docx");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 if (!fs.existsSync(OUTPUT_DIR)){
