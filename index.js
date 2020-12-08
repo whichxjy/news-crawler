@@ -18,7 +18,11 @@ const puppeteer = require("puppeteer");
 
     // Get item list.
     const itemList = await page.$$(".div_rmrb-outlinetitle");
-    console.log(itemList.length);
+    for (let item of itemList) {
+        let link = await item.$eval("a.ab18", el => el.getAttribute("href"));
+        let title = await item.$eval("a.ab18", el => el.innerHTML);
+        console.log(title, link);
+    }
 
     await page.screenshot({ path: "hello.png" });
 
