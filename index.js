@@ -33,8 +33,9 @@ class Worker {
         const itemList = await page.$$(itemListSelector);
 
         for (let item of itemList) {
-            let title = await item.$eval("a.ab18", el => el.innerHTML);
-            let link = await item.$eval("a.ab18", el => el.getAttribute("href"));
+            const itemSelector = "a.ab18";
+            let title = await item.$eval(itemSelector, el => el.innerHTML);
+            let link = await item.$eval(itemSelector, el => el.getAttribute("href"));
             workerList.push(new Worker(title, link));
         }
 
