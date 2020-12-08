@@ -79,7 +79,7 @@ const findNextPageLink = async (page) => {
         writeContentToDocs(worker.title, content);
     }
 
-    console.log(workerList.length);
+    console.log("Done");
 
     await browser.close();
 })();
