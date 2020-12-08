@@ -2,10 +2,12 @@
   "name": "news-crawler",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "search": "node src/index.js"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whichxjy/news-crawler"
   },
+  "main": "index.js",
+  "scripts": {},
   "author": "",
   "license": "MIT",
   "dependencies": {
