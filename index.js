@@ -7,15 +7,15 @@ class Worker {
     }
 }
 
-const findNextPageButton = async (page) => {
+const findNextPageLink = async (page) => {
     await page.waitForSelector(".div_rmrb-date");
 
-    // const linkList = await page.$$("a[target='_self']");
-    const linkList = await page.$$eval("a[target='_self']", els => els.map(el => {
-        console.log(el.innerHTML);
-        return el.innerHTML;
-    }));
-    console.log(linkList);
+    const linkList = await page.$$eval("a[target='_self']", els => els
+        .filter(el => el.innerHTML === "下一页")
+        .map(el => el.getAttribute("href")));
+    if (linkList.length >= 1) {
+        return linkList[0];
+    }
 
     return null;
 };
@@ -52,8 +52,8 @@ const findNextPageButton = async (page) => {
             workerList.push(new Worker(title, link));
         }
 
-        const nextButton = await findNextPageButton(page);
-        console.log(nextButton);
+        const nextPageLink = await findNextPageLink(page);
+        console.log(nextPageLink);
 
         break;
     }
