@@ -7,6 +7,19 @@ class Worker {
     }
 }
 
+const findNextPageButton = async (page) => {
+    await page.waitForSelector(".div_rmrb-date");
+
+    // const linkList = await page.$$("a[target='_self']");
+    const linkList = await page.$$eval("a[target='_self']", els => els.map(el => {
+        console.log(el.innerHTML);
+        return el.innerHTML;
+    }));
+    console.log(linkList);
+
+    return null;
+};
+
 (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -39,10 +52,13 @@ class Worker {
             workerList.push(new Worker(title, link));
         }
 
+        const nextButton = await findNextPageButton(page);
+        console.log(nextButton);
+
         break;
     }
 
-    console.log(workerList);
+    // console.log(workerList);
 
     await page.screenshot({ path: "hello.png" });
 
