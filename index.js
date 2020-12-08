@@ -10,6 +10,12 @@ const puppeteer = require("puppeteer");
     await page.waitForSelector(searchSelector);
     await page.type(searchSelector, "Hello");
 
+    const [response] = await Promise.all([
+        page.waitForNavigation(),
+        page.click("input[title='提交检索']"),
+    ]);
+
+
     await page.screenshot({ path: "hello.png" });
 
     await browser.close();
